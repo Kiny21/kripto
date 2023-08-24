@@ -1,0 +1,24 @@
+Z:=Integers();
+NextPrime(1240);
+Z;
+Z:=Integers(1249);
+U<al>,f:=UnitGroup(Z);
+al;
+f(al);
+k:=Random([2..1248]);
+k;
+Factorization(Integers()! (Z! f(al)^k));
+
+Y:=Integers(1248);
+M:=Matrix([[Y! 1,1,1,1],[7,0,1,0],[0,0,1,2],[2,1,2,0]]);
+M;
+D:=Determinant(M);
+D;
+GCD(D,1248);
+M^-1;
+M^-1*Matrix([[Y! 1081],[474],[724],[162]]);
+NextPrime(500);
+t:=Random([2..1248]);
+t;
+Factorization(Integers()! (Z! f(al)^t));
+Log(GF(1249)! 7, GF(1249)!503);

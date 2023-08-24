@@ -1,0 +1,71 @@
+StringToSequence:= func<s | [s[n]: n in [1..#s]]>;
+SequenceToString:= func<q|&* q>;
+StrSeq:= StringToSequence;
+SeqStr:= SequenceToString;
+
+ctextlist:=StrSeq(ctext);
+
+mult:=[];
+
+for char in characterset do
+	k:=0;
+	for i in ctextlist do
+		if i eq char then
+			k:=k+1;			
+		end if;
+	end for;
+	Append(~mult,k);
+end for;
+
+parok:=[];
+s:=1;
+for j in mult do	
+	Append(~parok,[j,s]);
+	s:=s+1;	
+end for;
+
+rendezett:= Sort(parok);
+
+kell:=[rendezett[#mult-1],rendezett[#mult]];
+
+print kell;
+
+gy1:=Index(characterset," ");
+gy2:=Index(characterset,"e");
+
+c:=#mult;
+y1:=kell[1][2]-kell[2][2];
+x1:=gy2-gy1;
+print(x1);
+print(y1);
+
+a:=Solution(x1,y1,c);
+print(a);
+ainv0:=(Integers(74)!a)^(-1);
+ainv:=(Integers()!ainv0);
+print(ainv);
+print(gy1);
+
+b:= ((kell[2][2]-gy1*a) mod c);
+print(b);
+
+for i in ctextlist do
+	ind:=Index(characterset, i);
+	ujind:=((ainv*(ind-b)) mod c);
+	if ujind eq 0 then
+		uj:=characterset[c];
+	else
+		uj:=characterset[ujind];		
+	end if;
+	Exclude(~ctextlist,i);
+	Append(~ctextlist,uj);
+	
+end for;
+
+
+szoveg:=SeqStr(ctextlist);
+
+print(szoveg);
+
+Write("E:\\Egyetem\\Kripto\\szoveg.txt", szoveg);
+

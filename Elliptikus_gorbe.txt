@@ -1,0 +1,23 @@
+
+A:=[];
+P:=[];
+list:=[];
+
+for i in [1..54] do
+	list[i]:=[];
+end for;
+
+for a in [1..40] do
+	for b in [1..40] do
+		d:=-16*(4*(GF(41)! a)^3+27*b^2);
+		if d ne 0 then
+			E:=EllipticCurve([GF(41)! a,b]);			
+			el:=#E;			
+			Append(~list[el], [a,b,el]);		
+		end if;
+	end for;
+end for;
+list;	
+
+Write("E:\\Egyetem\\Kripto\\lista.txt", list);
+		

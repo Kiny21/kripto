@@ -1,0 +1,80 @@
+bin_list:= ["0000","0001","0010","0011","0100","0101","0110","0111","1000","1001","1010","1011","1100","1101","1110","1111"];
+hex_list:=["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"];
+
+StringToSequence:= func<s | [s[n]: n in [1..#s]]>;
+SequenceToString:= func<q|&* q>;
+StrSeq:= StringToSequence;
+SeqStr:= SequenceToString;
+
+function hex2bin(s)
+	s:= StrSeq(s);   
+	bin := [];
+
+	for i in s do
+		for char in hex_list do			
+			if i eq char then
+				ind_c:=Index(hex_list,char);
+        			Append(~bin,bin_list[ind_c]);				
+			end if;
+		end for;
+	end for;
+	return SeqStr(bin);
+end function;
+
+function bin2hex(s)
+	sl:=StrSeq(s);
+	sp:=[];
+	lens:=(#sl) div 4;
+	for i in [1 .. lens] do
+		sq:=[sl[4*i-3],sl[4*i-2],sl[4*i-1],sl[4*i]];
+		Append(~sp,SeqStr(sq));
+	end for;
+   
+	hex := [];
+	for i in sp do
+		for char in bin_list do		
+			if i eq char then
+				ind_c:=Index(bin_list,char);
+        			Append(~hex,hex_list[ind_c]);
+			end if;
+		end for;
+	end for;
+	hex:= SeqStr(hex);
+	return hex;
+end function;
+
+function dec2bin(numb)
+	if numb eq 0 then
+		bl:="0000";
+	elif numb lt 2 then
+		bl:="000";
+	elif numb lt 4 then
+		bl:="00";
+	elif numb lt 8 then
+		bl:="0";
+	else
+		bl:="";
+	end if;
+	bin:=Reverse(Intseq(numb,2));
+	for i in bin do
+		a:=IntegerToString(i);
+		bl:=bl*a;
+	end for;		
+	return bl;
+end function;
+
+function bin2dec(numb)	
+	numb:=StrSeq(numb);
+	numb_rev:=Reverse(numb);
+	dmal:=0;
+	for i in [1.. #numb_rev] do
+		if numb_rev[i] eq "1" then
+			dmal:=dmal+2^(i-1);
+		end if;
+	end for;
+	dmal:=IntegerToString(dmal);
+    return dmal;
+	
+end function;
+		
+
